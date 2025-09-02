@@ -1,4 +1,3 @@
-```markdown
 # 📩 Newsletter Subscription Page  
 
 A simple and modern **newsletter subscription landing page** built with **HTML, CSS, and JavaScript**.  
