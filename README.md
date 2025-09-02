@@ -44,7 +44,7 @@ It allows users to subscribe with their email address and showcases the benefits
 1. Clone the repository:  
    ```bash
    git clone https://github.com/TutorialsAndroid/NewsLetter.git
-````
+    ```
 
 2. Navigate to the project folder:
 
