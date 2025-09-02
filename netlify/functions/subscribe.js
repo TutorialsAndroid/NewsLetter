@@ -1,21 +1,33 @@
 export async function handler(event) {
+  console.log("BREVO_API_KEY:", process.env.BREVO_API_KEY ? "Loaded ✅" : "Missing ❌");
+  
   try {
     const { email } = JSON.parse(event.body);
 
     const API_KEY = process.env.BREVO_API_KEY;
+
+    if (!API_KEY) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({
+          error: "❌ API key missing. Did you set BREVO_API_KEY in .env?",
+        }),
+      };
+    }
+
     const LIST_ID = 2; // Replace with your Brevo list ID
 
     const response = await fetch("https://api.brevo.com/v3/contacts", {
       method: "POST",
       headers: {
-        "accept": "application/json",
+        accept: "application/json",
         "content-type": "application/json",
-        "api-key": API_KEY
+        "api-key": API_KEY,
       },
       body: JSON.stringify({
         email: email,
-        listIds: [LIST_ID]
-      })
+        listIds: [LIST_ID],
+      }),
     });
 
     const data = await response.json();
@@ -23,20 +35,18 @@ export async function handler(event) {
     if (response.ok) {
       return {
         statusCode: 200,
-        body: JSON.stringify({ message: "Subscribed successfully!" })
+        body: JSON.stringify({ message: "Subscribed successfully!" }),
       };
     } else {
       return {
         statusCode: response.status,
-        body: JSON.stringify({ error: data.message || "Subscription failed" })
+        body: JSON.stringify({ error: data.message || "Subscription failed" }),
       };
     }
-
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Server error: " + error.message })
+      body: JSON.stringify({ error: "Server error: " + error.message }),
     };
   }
 }
-

@@ -1,0 +1,11 @@
+# Local Netlify folder
+.netlify
+
+# Ignore environment files
+.env
+
+# Node modules (if you ever add a package.json)
+node_modules/
+
+# Ignore the archive folder
+archive/
